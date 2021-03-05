@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+        #wrapper {
+            background-color: bisque;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript" src="mad_libs.js"></script>
+    <div id="wrapper">
+        <h2>Madlibs</h2>
+        <p>Please enter the following information:</p>
+
+        <input oninput="Caps(this)" id="pluralNoun" placeholder="a plural noun"><br>
+        <input oninput="Caps(this)" id="noun1" placeholder="a noun"><br>
+        <input oninput="Caps(this)" id="noun2" placeholder="another noun"><br>
+        <input oninput="Caps(this)" id="song" placeholder="song"><br>
+        <input oninput="Caps(this)" id="verb" placeholder="verb"><br>
+
+
+        <button id="submit" type="button">Submit</button>
+        <p id="madLibOutput"></p>
+        <button id="goAgain" onclick="myFunction()" style="display:none">Go Again!</button>
+    </div>
+        
+</body>
+
+</html>
