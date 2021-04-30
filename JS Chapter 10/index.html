@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>jQuery New Account Creation Form</title>
+
+</head>
+<body>
+<h1>jQuery New Account Creation Form</h1>
+<form id="new-account-form">
+<p><input type="email" size="30" name="email" value="" placeholder="Enter your email address"></p>
+<p><input type="text" size="30" name="password1" value="" placeholder="Enter a password"></p>
+<p><input type="text" size="30" name="password2" value="" placeholder="Reenter the password"></p>
+<button type="submit">Create Account</button>
+</form>
+<p>Form Output: <span id="output"></span></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var submitForm = function(event) {
+        event.preventDefault();
+        var email = $("input[name='email']").val()
+        var password1 = $("input[name='password1']").val()
+        var password2 = $("input[name='password2']").val()
+        $("#output").html("")
+        var pEmail = document.createElement("p")
+        pEmail.innerHTML = email
+        $("#output").append(pEmail)
+        if(password1 == password2)
+        {
+            $("#output").append("passwords match")
+        } else {
+            $("#output").append("passwords do not match")
+        }
+    }
+    $("#new-account-form").submit(submitForm)
+
+
+</script>
+</body>
+</html>
