@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>Report Your Alien Sighting</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+		#red, #green, #blue {
+    float: left;
+    clear: left;
+    width: 300px;
+    margin: 15px;
+  }
+  #swatch {
+    width: 120px;
+    height: 100px;
+    margin-top: 18px;
+    margin-left: 350px;
+    background-image: none;
+  }
+  #red .ui-slider-range { background: #ef2929; }
+  #red .ui-slider-handle { border-color: #ef2929; }
+  #green .ui-slider-range { background: #8ae234; }
+  #green .ui-slider-handle { border-color: #8ae234; }
+  #blue .ui-slider-range { background: #729fcf; }
+  #blue .ui-slider-handle { border-color: #729fcf; }
+
+	body{
+		background-color: black;
+		color: aliceblue;
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	h2 {
+		color: #ef2929;
+		background-color: black;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+</head>
+<body>
+
+<h1>Report Your Alien Sighting!</h1>
+
+
+
+<!-- Datepicker -->
+<h2 class="demoHeaders">Sighting Date</h2>
+<div id="datepicker"></div>
+
+<fieldset>
+    <legend>Select an Alien Type: </legend>
+    <label for="radio-1">Human-like</label>
+    <input type="radio" name="radio-1" id="radio-1">
+    <label for="radio-2">Worm-like</label>
+    <input type="radio" name="radio-1" id="radio-2">
+    <label for="radio-3">Bird-like</label>
+    <input type="radio" name="radio-1" id="radio-3">
+  </fieldset>
+
+<!-- Slider -->
+<h2 class="demoHeaders">Weight in pounds</h2>
+<p id="slider1p"></p>
+<div id="slider1"></div>
+
+<!-- Slider -->
+<h2 class="demoHeaders">Height in feet</h2>
+<p id="slider2p"></p>
+<div id="slider2"></div>
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of eyes</h2>
+<input id="spinner1">
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of arms</h2>
+<input id="spinner2">
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of legs</h2>
+<input id="spinner3">
+
+<!-- Slider -->
+<h2 class="demoHeaders">Main color of alien</h2>
+<div id="red"></div>
+<div id="green"></div>
+<div id="blue"></div>
+ 
+<div id="swatch" class="ui-widget-content ui-corner-all"></div>
+ 
+
+<h2 class="demoHeaders">Dialog</h2>
+<p>
+	<button id="dialog-link" class="ui-button ui-corner-all ui-widget">
+		<span class="ui-icon ui-icon-newwin"></span>Submit
+	</button>
+</p>
+
+<!-- ui-dialog -->
+<div id="dialog" title="Success">
+Your sighting has been submitted.  Keep your eyes to the skies!
+<div>
+<img src="alien.jpeg" height="30%" width="30%">
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+$( function() {
+$( "#datepicker" ).datepicker({
+	inline: true
+});
+
+$( "input[type='radio']" ).checkboxradio({
+      icon: false
+    });
+
+$( "#slider1" ).slider({
+	range: false,
+	min: 0,
+	max: 10,
+	value: 7,
+	slide: function(event, ui) {
+		$("#slider1p").text(ui.value)
+	}
+});
+
+$( "#slider2" ).slider({
+	range: false,
+	min: 0,
+	max: 10,
+	slide: function(event, ui) {
+		$("#slider2p").text(ui.value)
+	}
+});
+
+$( "#spinner1" ).spinner({
+	min: 0
+});
+
+$( "#spinner2" ).spinner({
+	min: 0
+});
+
+$( "#spinner3" ).spinner({
+	min: 0
+});
+
+
+
+
+	function hexFromRGB(r, g, b) {
+      var hex = [
+        r.toString( 16 ),
+        g.toString( 16 ),
+        b.toString( 16 )
+      ];
+      $.each( hex, function( nr, val ) {
+        if ( val.length === 1 ) {
+          hex[ nr ] = "0" + val;
+        }
+      });
+      return hex.join( "" ).toUpperCase();
+    }
+    function refreshSwatch() {
+      var red = $( "#red" ).slider( "value" ),
+        green = $( "#green" ).slider( "value" ),
+        blue = $( "#blue" ).slider( "value" ),
+        hex = hexFromRGB( red, green, blue );
+      $( "#swatch" ).css( "background-color", "#" + hex );
+    }
+ 
+    $( "#red, #green, #blue" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      max: 255,
+      value: 127,
+      slide: refreshSwatch,
+      change: refreshSwatch
+    });
+    $( "#red" ).slider( "value", 255 );
+    $( "#green" ).slider( "value", 140 );
+    $( "#blue" ).slider( "value", 60 );
+
+	$( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+
+// Link to open the dialog
+$( "#dialog-link" ).click(function( event ) {
+	$( "#dialog" ).dialog( "open" );
+	event.preventDefault();
+});
+
+
+
+
+
+
+} );
+
+</script>
+</body>
+</html>
